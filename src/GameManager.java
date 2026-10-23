@@ -29,6 +29,35 @@ public class GameManager {
         games.add(game);
         return true;
     }
+    public boolean searchGame(String title)
+    {
+        for(Game storedGame : games)
+        {
+            if(storedGame.getTitle().equals(title))
+            {
+                System.out.println(storedGame.toString());
+                return true;
+            }
+        }
+        System.out.println("Game not found.");
+        System.out.println("Please check your entry, and try again.");
+        return false;
+    }
+    public boolean searchGame(int id)
+    {
+        for(Game storedGame : games)
+        {
+            if(storedGame.getGameID() == id)
+            {
+                System.out.println(storedGame.toString());
+                return true;
+            }
+        }
+        System.out.println("Game not found.");
+        System.out.println("Please check your entry, and try again.");
+        return false;
+    }
+
     public boolean removeGame(String title,String platform)
     {
         for(Game storedGame : games)
@@ -64,5 +93,4 @@ public class GameManager {
         }
         return false;
     }
-
 }

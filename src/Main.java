@@ -4,7 +4,16 @@ public class Main {
     private static GameManager gameManager = new GameManager();
     private static ConsoleIO consoleIO = new ConsoleIO();
     private static Scanner scanner = new Scanner(System.in);
-
+//    static boolean checkIfGameTrackerIsEmpty()
+//    {
+//        if(gameManager.checkIfEmpty())
+//        {
+//            System.out.println("There are currently no Games.\n");
+//            System.out.println("If you want to add games, please choose option 1.");
+//            return true;
+//        }
+//        return false;
+//    }
     public static void main(String[] args) {
         boolean inUse = true;
         while (inUse)
@@ -27,6 +36,33 @@ public class Main {
                     }
                     break;
                 case "2":
+                    if(gameManager.checkIfEmpty())
+                    {
+                        System.out.println("There are currently no Games.\n");
+                        System.out.println("If you want to add games, please choose option 1.");
+                    }
+                    else
+                    {
+                        int choice = consoleIO.PromptInt("Search by Title = 1, or Game ID = 2?", 1,2);
+                        if(choice == 1)
+                        {
+                            String title = consoleIO.PromptString("Enter Title: ", true).toUpperCase();
+                            Boolean wasFoundWithTitle = gameManager.searchGame(title);
+                            if(!wasFoundWithTitle)
+                            {
+                                System.out.println("Game not found.");
+                            }
+                        }
+                        if(choice == 2)
+                        {
+                            int id = consoleIO.PromptInt("Enter the Game's Id: ",1,999999);
+                            Boolean wasFoundWithId = gameManager.searchGame(id);
+                            if(!wasFoundWithId)
+                            {
+                                System.out.println("Game not found.");
+                            }
+                        }
+                    }
                     break;
                 case "3":
                     break;

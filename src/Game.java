@@ -54,7 +54,7 @@ public class Game {
     }
     @Override
     public String toString() {
-        return "Game ID: " + getGameID() + " Title: " + getTitle() + " Platform: " + getPlatform() +  " Genre: " + getGenre() + " Currently Playing: " + getCurrentlyPlaying() + " Score: " + getScore();
+        return "Game ID: " + getGameID() + " | Title: " + getTitle() + " | Platform: " + getPlatform() +  " | Genre: " + getGenre() + " | Currently Playing: " + getCurrentlyPlaying() + " | Score: " + getScore();
     }
 
 }
