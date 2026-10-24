@@ -57,7 +57,58 @@ public class GameManager {
         System.out.println("Please check your entry, and try again.");
         return false;
     }
+    public boolean filterGamesByPlatform(String filter)
+    {
+        ArrayList<Game> filteredGames = new ArrayList<>();
 
+        for(Game storedGame : games)
+        {
+            if(storedGame.getTitle().contains(filter.toUpperCase()))
+            {
+                filteredGames.add(storedGame);
+            }
+        }
+        return true;
+    }
+    public boolean filterGamesByGenre(String filter)
+    {
+        ArrayList<Game> filteredGames = new ArrayList<>();
+
+        for(Game storedGame : games)
+        {
+            if(storedGame.getTitle().contains(filter.toUpperCase()))
+            {
+                filteredGames.add(storedGame);
+            }
+        }
+        return true;
+    }
+    public boolean filterGamesByCurrentlyPlaying(String filter)
+    {
+        ArrayList<Game> filteredGames = new ArrayList<>();
+
+        for(Game storedGame : games)
+        {
+            if(storedGame.getTitle().contains(filter.toUpperCase()))
+            {
+                filteredGames.add(storedGame);
+            }
+        }
+        return true;
+    }
+    public boolean filterGamesByScore(int filter)
+    {
+        ArrayList<Game> filteredGames = new ArrayList<>();
+
+        for(Game storedGame : games)
+        {
+            if(storedGame.getScore()==filter)
+            {
+                filteredGames.add(storedGame);
+            }
+        }
+        return true;
+    }
     public boolean removeGame(String title,String platform)
     {
         for(Game storedGame : games)

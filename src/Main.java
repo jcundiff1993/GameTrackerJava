@@ -65,6 +65,27 @@ public class Main {
                     }
                     break;
                 case "3":
+                        String choice = consoleIO.PromptString("Filer by: Platform, Genre, Currently Playing" +
+                                "or Score", true).toUpperCase();
+                        switch(choice)
+                        {
+                            case "PLATFORM":
+                                String platform = consoleIO.PromptString("Platform: ", true).toUpperCase();
+                                Boolean wasFoundWithPlatform = gameManager.filterGamesByPlatform(platform);
+                                break;
+                            case "GENRE":
+                                String genre = consoleIO.PromptString("Genre: ", true).toUpperCase();
+                                Boolean wasFoundWithGenre = gameManager.filterGamesByGenre(genre);
+                                break;
+                            case "CURRENTLY PLAYING":
+                                Boolean wasFoundByCurrentlyPlaying = gameManager.filterGamesByCurrentlyPlaying("true");
+                                break;
+                            case "SCORE":
+                                int score = consoleIO.PromptInt("Score: ", 1, 10);
+                                Boolean wasFoundByScore = gameManager.filterGamesByScore(score);
+                                break;
+                        }
+
                     break;
                 case "4":
                     if(gameManager.checkIfEmpty())
