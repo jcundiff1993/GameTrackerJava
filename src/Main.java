@@ -14,7 +14,9 @@ public class Main {
 //        }
 //        return false;
 //    }
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
+        gameManager.launchFile();
         boolean inUse = true;
         while (inUse)
         {
@@ -38,7 +40,7 @@ public class Main {
                     if(gameManager.checkIfEmpty())
                     {
                         System.out.println("There are currently no Games.\n");
-                        System.out.println("If you want to add games, please choose option 1.");
+                        System.out.println("Please add games first.");
                     }
                     else
                     {
@@ -67,7 +69,7 @@ public class Main {
                     if(gameManager.checkIfEmpty())
                     {
                         System.out.println("There are currently no Games.\n");
-                        System.out.println("If you want to add games, please choose option 1.");
+                        System.out.println("Please add games first.");
                     }
                     else {
                         boolean isValidFilter = false;
@@ -86,7 +88,7 @@ public class Main {
                                     isValidFilter = true;
                                     break;
                                 case "CURRENTLY PLAYING":
-                                    Boolean wasFoundByCurrentlyPlaying = gameManager.filterGamesByCurrentlyPlaying("true");
+                                    Boolean wasFoundByCurrentlyPlaying = gameManager.filterGamesByCurrentlyPlaying();
                                     isValidFilter = true;
                                     break;
                                 case "SCORE":

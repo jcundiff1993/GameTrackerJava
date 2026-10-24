@@ -44,28 +44,29 @@ public class ConsoleIO {
         }
         return result;
     }
-    public Boolean PromptBoolean (String message)
-    {
-        Boolean validAnswer = false;
-        String answer = "";
-        do
-        {
-            answer = PromptString(message + " Y = Yes, N = No ", true).toLowerCase();
-            switch (answer)
-            {
-                case "y":
-                case "n":
-                    validAnswer = true;
-                    break;
-                default:
-                        Display("Invalid input. Please try again.");
-                        break;
-            }
-
-        }
-        while (!validAnswer);
-        return answer == "y" ? true : false;
-    }
+//    public Boolean PromptBoolean (String message)
+//    {
+//        Boolean validAnswer = false;
+//        String answer = "";
+//        do
+//        {
+//            answer = PromptString(message + " Y = Yes, N = No ", true).toLowerCase();
+//            switch (answer)
+//            {
+//                case "y":
+//                    validAnswer = true;
+//                case "n":
+//                    validAnswer = true;
+//                    break;
+//                default:
+//                        Display("Invalid input. Please try again.");
+//                        break;
+//            }
+//
+//        }
+//        while (!validAnswer);
+//
+//    }
     public void displayMenu()
     {
         System.out.println("\n******************************************");
@@ -87,7 +88,26 @@ public class ConsoleIO {
         String name = PromptString("What is the name of the game?", true).toUpperCase();
         String platform = PromptString("What is the platform of the game?", true).toUpperCase();
         String genre = PromptString("What is the genre of the game?", true).toUpperCase();
-        Boolean currentlyPlaying = PromptBoolean("Are you currently playing this game?");
+        Boolean currentlyPlaying = false;
+        Boolean validPlayStatus = false;
+        do
+        {
+            String checkIfPlaying = PromptString("Are you currently playing this game? Y = Yes, N = No ",true).toUpperCase();
+            switch (checkIfPlaying)
+            {
+                case "Y":
+                    currentlyPlaying = true;
+                    validPlayStatus = true;
+                    break;
+                case "N":
+                    currentlyPlaying = false;
+                    validPlayStatus = true;
+                    break;
+                default:
+                    Display("Please enter a valid option.");
+
+            }
+        }while(!validPlayStatus);
         int score = PromptInt("What is your score for the game from 0-10?", 0, 10);
         Game game = new Game(gameId,name, platform, genre, currentlyPlaying, score);
         return game;

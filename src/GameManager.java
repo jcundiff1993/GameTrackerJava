@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -6,12 +7,27 @@ import java.io.IOException;
 
 public class GameManager {
     private ArrayList<Game> games;
+    private String filePath = "gameTrackerContent.txt";
 
     public GameManager()
     {
         games = new ArrayList<>();
     }
-
+    public void launchFile()
+    {
+        try(FileWriter writer = new FileWriter(filePath))
+        {
+            writer.write("Game Tracker Content");
+        }
+        catch(FileNotFoundException e)
+        {
+            System.out.println("Could not locate file location");
+        }
+        catch(IOException e)
+        {
+            System.out.println("Error writing to file");
+        }
+    }
     public boolean addGame(Game game,String platform)
     {
         int goToNextEntryInArrayList = 1;
@@ -63,10 +79,19 @@ public class GameManager {
 
         for(Game storedGame : games)
         {
-            if(storedGame.getTitle().contains(filter.toUpperCase()))
+            if(storedGame.getPlatform().equals(filter))
             {
                 filteredGames.add(storedGame);
             }
+        }
+        if(filteredGames.size() == 0)
+        {
+            System.out.println("There are currently no games that meet that criteria.");
+            return false;
+        }
+        for(Game game : filteredGames)
+        {
+            System.out.println(game.toString());
         }
         return true;
     }
@@ -76,23 +101,42 @@ public class GameManager {
 
         for(Game storedGame : games)
         {
-            if(storedGame.getTitle().contains(filter.toUpperCase()))
+            if(storedGame.getGenre().equals(filter))
             {
                 filteredGames.add(storedGame);
             }
         }
+        if(filteredGames.size() == 0)
+        {
+            System.out.println("There are currently no games that meet that criteria.");
+            return false;
+        }
+        for(Game game : filteredGames)
+        {
+            System.out.println(game.toString());
+        }
         return true;
     }
-    public boolean filterGamesByCurrentlyPlaying(String filter)
+    public boolean filterGamesByCurrentlyPlaying()
     {
         ArrayList<Game> filteredGames = new ArrayList<>();
 
         for(Game storedGame : games)
         {
-            if(storedGame.getTitle().contains(filter.toUpperCase()))
+            if(storedGame.getCurrentlyPlaying().equals(true))
             {
                 filteredGames.add(storedGame);
             }
+        }
+        if(filteredGames.size() == 0)
+        {
+            System.out.println("You are not currently playing any games in your collection.");
+            System.out.println("Make sure to add any new games, or start playing games from your collection.");
+            return false;
+        }
+        for(Game game : filteredGames)
+        {
+            System.out.println(game.toString());
         }
         return true;
     }
@@ -102,10 +146,19 @@ public class GameManager {
 
         for(Game storedGame : games)
         {
-            if(storedGame.getScore()==filter)
+            if(storedGame.getScore() == filter)
             {
                 filteredGames.add(storedGame);
             }
+        }
+        if(filteredGames.size() == 0)
+        {
+            System.out.println("There are currently no games that meet that criteria.");
+            return false;
+        }
+        for(Game game : filteredGames)
+        {
+            System.out.println(game.toString());
         }
         return true;
     }
