@@ -19,8 +19,7 @@ public class Main {
         while (inUse)
         {
             consoleIO.displayMenu();
-            System.out.print("Enter an option: ");
-            String option = scanner.nextLine();
+            String option = consoleIO.PromptString("Enter an option: ", true);
             switch (option)
             {
                 case "1":
@@ -65,27 +64,41 @@ public class Main {
                     }
                     break;
                 case "3":
-                        String choice = consoleIO.PromptString("Filer by: Platform, Genre, Currently Playing" +
-                                "or Score", true).toUpperCase();
-                        switch(choice)
-                        {
-                            case "PLATFORM":
-                                String platform = consoleIO.PromptString("Platform: ", true).toUpperCase();
-                                Boolean wasFoundWithPlatform = gameManager.filterGamesByPlatform(platform);
-                                break;
-                            case "GENRE":
-                                String genre = consoleIO.PromptString("Genre: ", true).toUpperCase();
-                                Boolean wasFoundWithGenre = gameManager.filterGamesByGenre(genre);
-                                break;
-                            case "CURRENTLY PLAYING":
-                                Boolean wasFoundByCurrentlyPlaying = gameManager.filterGamesByCurrentlyPlaying("true");
-                                break;
-                            case "SCORE":
-                                int score = consoleIO.PromptInt("Score: ", 1, 10);
-                                Boolean wasFoundByScore = gameManager.filterGamesByScore(score);
-                                break;
+                    if(gameManager.checkIfEmpty())
+                    {
+                        System.out.println("There are currently no Games.\n");
+                        System.out.println("If you want to add games, please choose option 1.");
+                    }
+                    else {
+                        boolean isValidFilter = false;
+                        while (!isValidFilter) {
+                            String choice = consoleIO.PromptString("Filer by: Platform, Genre, Currently Playing" +
+                                    " or Score: ", true).toUpperCase();
+                            switch (choice) {
+                                case "PLATFORM":
+                                    String platform = consoleIO.PromptString("Platform: ", true).toUpperCase();
+                                    Boolean wasFoundWithPlatform = gameManager.filterGamesByPlatform(platform);
+                                    isValidFilter = true;
+                                    break;
+                                case "GENRE":
+                                    String genre = consoleIO.PromptString("Genre: ", true).toUpperCase();
+                                    Boolean wasFoundWithGenre = gameManager.filterGamesByGenre(genre);
+                                    isValidFilter = true;
+                                    break;
+                                case "CURRENTLY PLAYING":
+                                    Boolean wasFoundByCurrentlyPlaying = gameManager.filterGamesByCurrentlyPlaying("true");
+                                    isValidFilter = true;
+                                    break;
+                                case "SCORE":
+                                    int score = consoleIO.PromptInt("Score: ", 1, 10);
+                                    Boolean wasFoundByScore = gameManager.filterGamesByScore(score);
+                                    isValidFilter = true;
+                                    break;
+                                default:
+                                    System.out.println("Invalid input.");
+                            }
                         }
-
+                    }
                     break;
                 case "4":
                     if(gameManager.checkIfEmpty())
