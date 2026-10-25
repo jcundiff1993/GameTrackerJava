@@ -4,29 +4,24 @@ public class Main {
     private static GameManager gameManager = new GameManager();
     private static ConsoleIO consoleIO = new ConsoleIO();
     private static Scanner scanner = new Scanner(System.in);
-//    static boolean checkIfGameTrackerIsEmpty()
-//    {
-//        if(gameManager.checkIfEmpty())
-//        {
-//            System.out.println("There are currently no Games.\n");
-//            System.out.println("If you want to add games, please choose option 1.");
-//            return true;
-//        }
-//        return false;
-//    }
     public static void main(String[] args)
     {
+        //Launches the txt file that stores the database files.
+        //If there is no txt file, it creates one.
         gameManager.launchFile();
         gameManager.loadFromFile();
         boolean inUse = true;
         while (inUse)
         {
+            //Calls the consoleio class to display the menu.
             consoleIO.displayMenu();
             String option = consoleIO.PromptString("Enter an option: ", true);
             switch (option)
             {
                 case "1":
                     Game game = consoleIO.promptGame();
+                    //Calls the gameManager to attempt to add a game. If the game is added successfully,
+                    // it will return an appropriate response and update the txt file.
                     boolean wasAdded = gameManager.addGame(game, game.getPlatform());
                     if (!wasAdded)
                     {
@@ -39,6 +34,7 @@ public class Main {
                     }
                     break;
                 case "2":
+                    //The search for a game first checks if the database has any files within.
                     if(gameManager.checkIfEmpty())
                     {
                         System.out.println("There are currently no Games.\n");
