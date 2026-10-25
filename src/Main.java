@@ -123,6 +123,7 @@ public class Main {
                         else
                         {
                             System.out.println("Game was successfully removed");
+                            gameManager.commitToFile();
                         }
                     }
                     break;
@@ -154,6 +155,7 @@ public class Main {
                                         if(wasGenreUpdatedSuccessfully)
                                         {
                                             consoleIO.Display(gameToEdit + " has been updated with the new genre: " + genre);
+                                            gameManager.commitToFile();
                                         }
                                         else
                                         {
@@ -167,6 +169,7 @@ public class Main {
                                         if(wasCurrentlyPlayingStatusUpdated)
                                         {
                                             consoleIO.Display(gameToEdit + "'s currently playing status has been updated.");
+                                            gameManager.commitToFile();
                                         }
                                         else
                                         {
@@ -180,6 +183,7 @@ public class Main {
                                         if(wasScoreUpdatedSuccessfully)
                                         {
                                             consoleIO.Display(gameToEdit + "'s score was successfully updated.");
+                                            gameManager.commitToFile();
                                         }
                                         else
                                         {
