@@ -17,6 +17,7 @@ public class Main {
     public static void main(String[] args)
     {
         gameManager.launchFile();
+        gameManager.loadFromFile();
         boolean inUse = true;
         while (inUse)
         {
@@ -34,6 +35,7 @@ public class Main {
                     else
                     {
                         System.out.println("Game was successfully added");
+                        gameManager.commitToFile();
                     }
                     break;
                 case "2":

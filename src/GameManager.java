@@ -15,17 +15,94 @@ public class GameManager {
     }
     public void launchFile()
     {
-        try(FileWriter writer = new FileWriter(filePath))
+        File file = new File(filePath);
+        if(!file.exists())
         {
+            try (FileWriter writer = new FileWriter(filePath))
+            {
+                writer.write("Game Tracker Content");
+                writer.write(System.lineSeparator());
+            } catch (IOException e)
+            {
+                System.out.println("Error creating game tracker file: " + e.getMessage());
+            }
+        }
+    }
+    public void loadFromFile()
+    {
+        File file = new File(filePath);
+        if(!file.exists())
+        {
+            System.out.println("Error: GameTracker File does not exist");
+            return;
+        }
+
+        try (Scanner scanner = new Scanner(file))
+        {
+            if(scanner.hasNextLine())
+            {
+                scanner.nextLine();
+            }
+            while(scanner.hasNextLine())
+            {
+                String line = scanner.nextLine();
+                if(line.isBlank())
+                {
+                    continue;
+                }
+                String[] fields = line.split(",", -1);
+                if(fields.length != 6)
+                {
+                    System.out.println("Invalid entry in gameTracker file: " + line);
+                    continue;
+                }
+                try
+                {
+                    int gameId = Integer.parseInt(fields[0].trim());
+                    String title = fields[1].trim();
+                    String platform = fields[2].trim();
+                    String genre = fields[3].trim();
+                    boolean currentlyPlaying = Boolean.parseBoolean(fields[4].trim());
+                    int score = Integer.parseInt(fields[5].trim());
+
+                    Game game = new Game(gameId, title, platform, genre, currentlyPlaying, score);
+                    games.add(game);
+                }
+                catch (NumberFormatException e)
+                {
+                    System.out.println("Invalid entry in gameTracker file: " + line);
+                }
+            }
+            System.out.println("Loaded game tracker file.");
+        }
+        catch (FileNotFoundException e)
+        {
+            System.out.println("Error: GameTracker File does not exist");
+        }
+    }
+    public void commitToFile()
+    {
+        try (FileWriter writer = new FileWriter(filePath)) {
             writer.write("Game Tracker Content");
-        }
-        catch(FileNotFoundException e)
-        {
-            System.out.println("Could not locate file location");
-        }
-        catch(IOException e)
-        {
-            System.out.println("Error writing to file");
+            writer.write(System.lineSeparator());
+            for (Game game : games) {
+
+                String csvEntry =
+                        game.getGameID() + "," +
+                                game.getTitle() + "," +
+                                game.getPlatform() + "," +
+                                game.getGenre() + "," +
+                                game.getCurrentlyPlaying() + "," +
+                                game.getScore();
+
+                writer.write(csvEntry);
+                writer.write(System.lineSeparator());
+            }
+
+            System.out.println("Game tracker data saved successfully.");
+
+        } catch (IOException e) {
+            System.out.println("Error writing to file: " + e.getMessage());
         }
     }
     public boolean addGame(Game game,String platform)
