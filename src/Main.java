@@ -26,7 +26,7 @@ public class Main {
             {
                 case "1":
                     Game game = consoleIO.promptGame();
-                    Boolean wasAdded = gameManager.addGame(game, game.getPlatform());
+                    boolean wasAdded = gameManager.addGame(game, game.getPlatform());
                     if (!wasAdded)
                     {
                         System.out.println("Game was not added");
@@ -48,7 +48,7 @@ public class Main {
                         if(choice == 1)
                         {
                             String title = consoleIO.PromptString("Enter Title: ", true).toUpperCase();
-                            Boolean wasFoundWithTitle = gameManager.searchGame(title);
+                            boolean wasFoundWithTitle = gameManager.searchGame(title);
                             if(!wasFoundWithTitle)
                             {
                                 System.out.println("Game not found.");
@@ -57,7 +57,7 @@ public class Main {
                         if(choice == 2)
                         {
                             int id = consoleIO.PromptInt("Enter the Game's Id: ",1,999999);
-                            Boolean wasFoundWithId = gameManager.searchGame(id);
+                            boolean wasFoundWithId = gameManager.searchGame(id);
                             if(!wasFoundWithId)
                             {
                                 System.out.println("Game not found.");
@@ -79,21 +79,21 @@ public class Main {
                             switch (choice) {
                                 case "PLATFORM":
                                     String platform = consoleIO.PromptString("Platform: ", true).toUpperCase();
-                                    Boolean wasFoundWithPlatform = gameManager.filterGamesByPlatform(platform);
+                                    boolean wasFoundWithPlatform = gameManager.filterGamesByPlatform(platform);
                                     isValidFilter = true;
                                     break;
                                 case "GENRE":
                                     String genre = consoleIO.PromptString("Genre: ", true).toUpperCase();
-                                    Boolean wasFoundWithGenre = gameManager.filterGamesByGenre(genre);
+                                    boolean wasFoundWithGenre = gameManager.filterGamesByGenre(genre);
                                     isValidFilter = true;
                                     break;
                                 case "CURRENTLY PLAYING":
-                                    Boolean wasFoundByCurrentlyPlaying = gameManager.filterGamesByCurrentlyPlaying();
+                                    boolean wasFoundByCurrentlyPlaying = gameManager.filterGamesByCurrentlyPlaying();
                                     isValidFilter = true;
                                     break;
                                 case "SCORE":
                                     int score = consoleIO.PromptInt("Score: ", 1, 10);
-                                    Boolean wasFoundByScore = gameManager.filterGamesByScore(score);
+                                    boolean wasFoundByScore = gameManager.filterGamesByScore(score);
                                     isValidFilter = true;
                                     break;
                                 default:
@@ -112,7 +112,7 @@ public class Main {
                     {
                         String gameToRemove = consoleIO.PromptString("What game do you want to remove?",true).toUpperCase();
                         String platformForGameToRemove = consoleIO.PromptString("What is the console?",true).toUpperCase();
-                        Boolean wasRemoved = gameManager.removeGame(gameToRemove, platformForGameToRemove);
+                        boolean wasRemoved = gameManager.removeGame(gameToRemove, platformForGameToRemove);
                         if (!wasRemoved)
                         {
                             System.out.println("Game was not removed");
@@ -125,6 +125,77 @@ public class Main {
                     }
                     break;
                 case "5":
+                    if(gameManager.checkIfEmpty())
+                    {
+                        System.out.println("There are currently no Games.\n");
+                        System.out.println("If you want to add games, please choose option 1.");
+                    }
+                    else
+                    {
+                        String gameToEdit = consoleIO.PromptString("What game do you want to Edit?",true).toUpperCase();
+                        String platformForGameToEdit = consoleIO.PromptString("What is the console?",true).toUpperCase();
+                        boolean wasFoundWithTitle = gameManager.searchGame(gameToEdit, platformForGameToEdit);
+                        if(!wasFoundWithTitle)
+                        {
+                            System.out.println("Game not found.");
+                        }
+                        if(wasFoundWithTitle)
+                        {
+                            boolean validChoice = false;
+                            do {
+                                String choice = consoleIO.PromptString("Do you want to update the Genre, Currently Playing Status " +
+                                        "or Score? (Type return to go to the Main Menu)", true).toUpperCase();
+                                switch (choice) {
+                                    case "GENRE":
+                                        String genre = consoleIO.PromptString("Genre: ", true).toUpperCase();
+                                        boolean wasGenreUpdatedSuccessfully = gameManager.updateGenre(gameToEdit, platformForGameToEdit, genre);
+                                        if(wasGenreUpdatedSuccessfully)
+                                        {
+                                            consoleIO.Display(gameToEdit + " has been updated with the new genre: " + genre);
+                                        }
+                                        else
+                                        {
+                                            consoleIO.Display("Something went wrong. Please try again.");
+                                        }
+                                        validChoice = true;
+                                        break;
+                                    case "CURRENTLY PLAYING":
+                                        String currentlyPlayingStatusEntry = consoleIO.PromptString("Are you currently playing: " + gameToEdit + " on the " + platformForGameToEdit + " Yes, or No.", true).toUpperCase();
+                                        boolean wasCurrentlyPlayingStatusUpdated = gameManager.updateCurrentlyPlaying(gameToEdit,  platformForGameToEdit, currentlyPlayingStatusEntry);
+                                        if(wasCurrentlyPlayingStatusUpdated)
+                                        {
+                                            consoleIO.Display(gameToEdit + "'s currently playing status has been updated.");
+                                        }
+                                        else
+                                        {
+                                            consoleIO.Display("Something went wrong. Please try again.");
+                                        }
+                                        validChoice = true;
+                                        break;
+                                    case "SCORE":
+                                        int score = consoleIO.PromptInt("What is the new score for " + gameToEdit + " on the " + platformForGameToEdit + " : ", 1, 10);
+                                        boolean wasScoreUpdatedSuccessfully = gameManager.updateScore(gameToEdit, platformForGameToEdit, score);
+                                        if(wasScoreUpdatedSuccessfully)
+                                        {
+                                            consoleIO.Display(gameToEdit + "'s score was successfully updated.");
+                                        }
+                                        else
+                                        {
+                                            consoleIO.Display("Something went wrong. Please try again.");
+                                        }
+                                        validChoice = true;
+                                        break;
+                                    case "RETURN":
+                                        consoleIO.Display("Returning to the main menu.");
+                                        validChoice = true;
+                                        break;
+                                    default:
+                                        System.out.println("Invalid input.");
+                                }
+                            }while(!validChoice);
+
+                        }
+                    }
                     break;
                 case "6":
                     System.out.print("Exiting GameTracker. Have a nice day!");

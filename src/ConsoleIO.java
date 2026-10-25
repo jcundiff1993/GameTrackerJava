@@ -44,29 +44,7 @@ public class ConsoleIO {
         }
         return result;
     }
-//    public Boolean PromptBoolean (String message)
-//    {
-//        Boolean validAnswer = false;
-//        String answer = "";
-//        do
-//        {
-//            answer = PromptString(message + " Y = Yes, N = No ", true).toLowerCase();
-//            switch (answer)
-//            {
-//                case "y":
-//                    validAnswer = true;
-//                case "n":
-//                    validAnswer = true;
-//                    break;
-//                default:
-//                        Display("Invalid input. Please try again.");
-//                        break;
-//            }
-//
-//        }
-//        while (!validAnswer);
-//
-//    }
+
     public void displayMenu()
     {
         System.out.println("\n******************************************");
@@ -81,7 +59,6 @@ public class ConsoleIO {
         System.out.println("******************************************");
         System.out.print("What would you like to do?: ");
     }
-
     public Game promptGame()
     {
         int gameId = 0;

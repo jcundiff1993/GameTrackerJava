@@ -59,6 +59,20 @@ public class GameManager {
         System.out.println("Please check your entry, and try again.");
         return false;
     }
+    public boolean searchGame(String title, String platform)
+    {
+        for(Game storedGame : games)
+        {
+            if(storedGame.getTitle().equals(title) && storedGame.getPlatform().equals(platform))
+            {
+                System.out.println(storedGame.toString());
+                return true;
+            }
+        }
+        System.out.println("Game not found.");
+        System.out.println("Please check your entry, and try again.");
+        return false;
+    }
     public boolean searchGame(int id)
     {
         for(Game storedGame : games)
@@ -94,6 +108,54 @@ public class GameManager {
             System.out.println(game.toString());
         }
         return true;
+    }
+    public boolean updateGenre(String gameToEdit, String platformForGameToEdit, String genre)
+    {
+        for(Game storedGame : games)
+        {
+            if(storedGame.getTitle().equals(gameToEdit) && storedGame.getPlatform().equals(platformForGameToEdit))
+            {
+                storedGame.setGenre(genre);
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean updateScore(String gameToEdit, String platformForGameToEdit, int newScore)
+    {
+        for(Game storedGame : games)
+        {
+            if(storedGame.getTitle().equals(gameToEdit) && storedGame.getPlatform().equals(platformForGameToEdit))
+            {
+                storedGame.setScore(newScore);
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean updateCurrentlyPlaying(String gameToEdit, String platformForGameToEdit, String currentlyPlayingStatusEntry)
+    {
+        for(Game storedGame : games)
+        {
+            if(storedGame.getTitle().equals(gameToEdit) && storedGame.getPlatform().equals(platformForGameToEdit))
+            {
+
+                switch(currentlyPlayingStatusEntry)
+                {
+                    case "YES":
+                        storedGame.setCurrentlyPlaying(true);
+                        return true;
+                    case "NO":
+                        storedGame.setCurrentlyPlaying(false);
+                        return true;
+                    default:
+                        System.out.println("Invalid entry");
+                        System.out.println("Please check your entry, and try again.");
+                        return false;
+                }
+            }
+        }
+        return false;
     }
     public boolean filterGamesByGenre(String filter)
     {
@@ -171,6 +233,18 @@ public class GameManager {
                     games.remove(storedGame);
                     return true;
                 }
+        }
+        return false;
+    }
+    public boolean editGame(String title,String platform)
+    {
+        for(Game storedGame : games)
+        {
+            if(storedGame.getTitle().equals(title) && storedGame.getPlatform().equals(platform))
+            {
+                games.remove(storedGame);
+                return true;
+            }
         }
         return false;
     }
