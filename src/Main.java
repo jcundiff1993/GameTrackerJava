@@ -64,6 +64,7 @@ public class Main {
                         }
                     }
                     break;
+                //Allows user to filter games based on their inteded filter (platform, genre, currently playing, or score.
                 case "3":
                     if(gameManager.checkIfEmpty())
                     {
@@ -101,6 +102,9 @@ public class Main {
                         }
                     }
                     break;
+                //Allows users to remove titles from the GameTracker database. It confirms that games exist within the
+                // database, and then prompts the user to enter the game and platform for the title; to prevent accidental
+                // deletion of games with the same name on different platforms.
                 case "4":
                     if(gameManager.checkIfEmpty())
                     {
@@ -124,6 +128,11 @@ public class Main {
                         }
                     }
                     break;
+                //Allows users to edit details about title's within the GameTracker database. It confirms that games exist within the
+                // database, and then prompts the user to enter the game and platform for the title; to prevent accidental
+                // editing of unintended games. It allows users to update the genre, currently playing status, or score
+                // as updating the title and platform could create an unintended glitch where users could add duplicate
+                // entries to the database.
                 case "5":
                     if(gameManager.checkIfEmpty())
                     {
@@ -200,10 +209,12 @@ public class Main {
                         }
                     }
                     break;
+                //Gracefully exits the game tracker.
                 case "6":
                     System.out.print("Exiting GameTracker. Have a nice day!");
                     inUse = false;
                     break;
+                //Advises the user entered an invalid entry.
                 default:
                     System.out.println("Invalid option. Please try again.");
                     System.out.println("Enter any key to continue:");
