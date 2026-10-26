@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 public class ConsoleIO {
     Scanner scanner = new Scanner(System.in);
+    //Checks if a space is empty or filled with whitespace.
     public Boolean isNullOrWhiteSpace(String str)
     {
         return str == null || str.isBlank();
@@ -15,10 +16,12 @@ public class ConsoleIO {
             return defaultValue;
         }
     }
+    //Creates a simple display message to display messages.
     public void Display (String message)
     {
     System.out.println(message);
     }
+    //Prompts the user to enter a string value. Adds the ability to make a valid entry required or not.
     public String PromptString (String message, Boolean isRequired)
     {
         System.out.print(message);
@@ -30,6 +33,7 @@ public class ConsoleIO {
         }
         return result.strip();
     }
+    //Prompts the user to enter an int value and set the minimum and maximum value.
     public int PromptInt(String message, int min, int max)
     {
         int failedParseScore = -1;
@@ -44,7 +48,7 @@ public class ConsoleIO {
         }
         return result;
     }
-
+    // Displays the main menu in the main class.
     public void displayMenu()
     {
         System.out.println("\n******************************************");
@@ -59,6 +63,7 @@ public class ConsoleIO {
         System.out.println("******************************************");
         System.out.print("What would you like to do?: ");
     }
+    //Prompts the user to enter the required values for the game object.
     public Game promptGame()
     {
         int gameId = 0;
