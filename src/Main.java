@@ -46,7 +46,8 @@ public class Main {
                         if(choice == 1)
                         {
                             String title = consoleIO.PromptString("Enter Title: ", true).toUpperCase();
-                            boolean wasFoundWithTitle = gameManager.searchGame(title);
+                            String platform = consoleIO.PromptString("Enter Platform: ", true).toUpperCase();
+                            boolean wasFoundWithTitle = gameManager.searchGame(title,  platform);
                             if(!wasFoundWithTitle)
                             {
                                 System.out.println("Game not found.");
@@ -202,9 +203,6 @@ public class Main {
                 case "6":
                     System.out.print("Exiting GameTracker. Have a nice day!");
                     inUse = false;
-                    break;
-                case "7":
-                    gameManager.displayAllGames();
                     break;
                 default:
                     System.out.println("Invalid option. Please try again.");
